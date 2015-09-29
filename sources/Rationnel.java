@@ -7,9 +7,9 @@ class Rationnel {
     /**
      * Constructeur de la classe Rationnel
      *
-     *@param : n la partie entière
-     *@param : a le numerateur de la partie décimale
-     *@param : b le dénominateur de la partie décimale
+     * @param : n la partie entière
+     * @param : a le numerateur de la partie décimale
+     * @param : b le dénominateur de la partie décimale
      */
 	public Rationnel(int n, int a, int b) {
 		this.n = n;
@@ -21,114 +21,133 @@ class Rationnel {
     /**
      * Constructeur de la classe Rationnel
      *
-     *@param : a le numerateur de la partie décimale
-     *@param : b le dénominateur de la partie décimale
+     * @param : a le numerateur de la partie décimale
+     * @param : b le dénominateur de la partie décimale
      */
 	public Rationnel(int a, int b) {
-		this.a = a;
-		this.b = b;
-	        this.modif();
+		this(0, a, b);
 	}
 
-     /**
+    /**
      * Constructeur de la classe Rationnel
      *
-     *@param : n la partie entière
+     * @param : n la partie entière
      */
 	public Rationnel(int n) {
-		this.n = n;
-	        this.modif();
+		this(n, 0, 0);
 	}
 
     /**
-     * renvoie true si le nombre rationnel vaut 0 sinon renvoie false
+     * Méthode qui permet de savoir si le nombre rationnel courant est nul
+     * 
+     * @return true si nul, false si non nul
      */
 	public boolean estNul() {
-		return n*b + a == 0;
+		return n * b + a == 0;
 	}
 
     /**
-     * renvoie l'inverse du nombre rationnel
+     * Méthode qui retourne l'inverse du nombre rationnel
+     * 
+     * @return l'inverse
      */
 	public Rationnel inverse() {
-	    return new Rationnel(b,n*b+a) ;
+	    return new Rationnel(b, n * b + a) ;
 	}
 
     /**
      * Permet d'additioner au nombre rationnel courant un autre nombre rationnel 
-     *@param : r Le nombre rationnel à ajouter
+     *	
+     * @param : r Le nombre rationnel à ajouter
      */
 	public Rationnel ajouter(Rationnel r) {
 	    int nResult = this.n + r.getN();
-	    int aResult = this.a*r.getB() + r.getA()*this.b;
+	    int aResult = this.a * r.getB() + r.getA() * this.b;
 	    int bResult = this.b * r.getB();
-	    return new Rationnel (nResult,aResult,bResult);
+	    return new Rationnel (nResult, aResult, bResult);
 	}
 
     /**
      * Permet de multiplier au nombre rationnel courant un autre nombre rationnel 
-     *@param : r Le nombre rationnel par lequel on va le multiplier
+     *	
+     * @param : r Le nombre rationnel par lequel on va le multiplier
      */
 	public Rationnel multiplier(Rationnel r) {
-	    int nResult = this.n*r.getN();
-	    int aResult = r.getA()*this.n*this.b + r.getB()*this.a*this.n + r.getA()*this.a;
-	    int bResult = r.getB()*this.b;
-	    return new Rationnel (nResult,aResult,bResult);
+	    int nResult = this.n * r.getN();
+	    int aResult = r.getA() * this.n * this.b + r.getB() * this.a * this.n + r.getA() * this.a;
+	    int bResult = r.getB() * this.b;
+	    return new Rationnel (nResult, aResult, bResult);
 	}
 
     /**
-     * Renvoie une représentation sous forme de chaîne de caractères, le nombre rationnel
+     * Méthode qui permet d'afficher le nombre rationnel courant sous forme de chaîne de caractères
+     * 
+     * @return affichage du nombre rationnel
      */
 	public String toString() {
-	    if (a==0 && b==0)
-		return n+" + 0";
-	    else if (a==0)
-		return n+"";
-	    else if (n==0)
-		return a+"/"+b;
+	    if (a == 0 && b == 0)
+	    	return n + " + 0";
+	    else if (a == 0)
+	    	return "" + n;
+	    else if (n == 0)
+	    	return a + "/" + b;
 	    else
-	        return n+" + "+a+"/"+b;
+	        return n + " + " + a + "/" + b;
 	    }
 
     /**
-     * Compare deux nombre rationnel et retourne la différence entre les deux
+     * Méthode qui compare deux nombre rationnel
+     * 
+     * @return la différence entre les deux nombre rationnels
      */
 	public int compare(Rationnel r) {
-	    int numA = (this.n*this.b + this.a) * r.getB();
-	    int numA2 = (r.getN()*r.getB() + r.getA()) * this.b;
-	    return  numA-numA2;
+	    int numA = (this.n * this.b + this.a) * r.getB();
+	    int numA2 = (r.getN() * r.getB() + r.getA()) * this.b;
+	    return  numA - numA2;
 	}
 
     /**
      * Cette méthode normalise le nombre rationnel
      */
-	public void  modif() {
-	    // -28/16; a=-28; b=16; n=0;
-	    if (this.a<0 ^ this.b<0 || this.a>this.b) {
-		if(this.b<0) {
-		    this.a = -this.a;
-		    this.b = -this.b;
-		}
-		//a=-28; b=16; n=0;
-		int nTmp = this.a/this.b;
-		//nTmp=-1;
-		this.n += nTmp;
-		//n=-1;
-		this.a=this.a-nTmp*this.b;
-		//a=-12;b=16;n=-1;
-		if (a<0) {
-		    this.a=this.b+this.a;
-		    //a=4;b=16;n=-1;
-		    this.n--;
-		    //n=-2;
-		}	   	         
+	public void  modif() {						//Exemple avec -28/16; a=-28; b=16; n=0;
+	    if (this.a < 0 ^ this.b < 0 || this.a > this.b) {
+			if (this.b < 0) {
+			    this.a = - this.a;
+			    this.b = - this.b;
+			}									//a=-28; b=16; n=0;
+			
+			int nTmp = this.a/this.b;			//nTmp=-1;
+			this.n += nTmp;						//n=-1;
+			this.a = this.a - nTmp * this.b;	//a=-12; b=16; n=-1;
+			
+			if (a < 0) {
+			    this.a=this.b+this.a;			//a=4; b=16; n=-1;
+			    this.n--;						//n=-2;
+			}
 	    }
-	    if (pgcd(a,b)!=1 && pgcd(a,b)!=0) { //simplification
-		int pgcd = pgcd(a,b);
-		this.a = a/pgcd;
-		this.b = b/pgcd;
+	    if (pgcd(a, b) != 1 && pgcd(a, b) != 0) { //simplification
+			int pgcd = pgcd(a, b);
+			this.a = a / pgcd;
+			this.b = b / pgcd;
 	    }
+	}
 
+    /**
+     * Calcul le PGCD entre deux nombre : a et b
+     *
+     * @param : a le premier nombre
+     * @param : b le deuxieme nombre
+     * 
+     * @return le plus grand dénominateur commun
+     */
+	public static int pgcd(int a,int b) {
+	    int r;
+	    while(b != 0) {
+			r = a % b;
+			a = b;
+			b = r;
+	    }
+	    return a;
 	}
 
 	public Rationnel getPartieEntiere () {
@@ -136,22 +155,7 @@ class Rationnel {
 	}
 
 	public Rationnel getPartieDecimale() {
-	    return new Rationnel(this.a,this.b);
-	}
-
-    /**
-     * Calcul le PGCD entre deux nombre : a et b
-     *@param : a le premier nombre
-     *@param : b le deuxieme nombre
-     */
-	public static int pgcd(int a,int b) {
-	    int r;
-	    while(b!=0) {
-		r=a%b;
-		a=b;
-		b=r;
-	    }
-	    return a;
+	    return new Rationnel(this.a, this.b);
 	}
 
 	public int getA(){
