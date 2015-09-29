@@ -24,7 +24,7 @@ class Rationnel {
 	}
 	
 	public Rationnel inverse() {
-		return new Rationnel(1/n, b, a);
+	    return new Rationnel(1, n +);
 	}
 	
 	public Rationnel ajouter(Rationnel r) {
@@ -33,5 +33,14 @@ class Rationnel {
 	
 	public Rationnel multiplier(Rationnel r) {
 		
+	}
+
+	public Rationnel toString() {
+	    if (a==0 && b==0)
+		return n+" + 0";
+	    if (n==0)
+		return a+"/"+b;
+	    else
+		return n+" + "+a+"/"+b;
 	}
 	
